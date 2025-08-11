@@ -1,0 +1,7 @@
+cd node-env
+docker build -t node-env .
+docker run -p 3000:3000 \
+  -e APP_NAME="Node Test App" \
+  -e ENVIRONMENT="Production" \
+  -e VERSION="1.0.0" \
+  node-env
