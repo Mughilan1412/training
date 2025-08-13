@@ -1,0 +1,21 @@
+.NET, docker default command:
+docker run -d -p 8080:80 -e DOTNET_URLS="http://+:80" dotnet-env
+
+.NET, docker Overriding env command:
+docker run -d -p 8080:80\
+   -e DOTNET_URLS="http://+:80"\
+  -e Environment="Docker"\
+   -e Database__ConnectionString="Docker connection string"\
+ dotnet-env
+
+----------------------------------------
+
+Node, docker default command:
+docker run -d -p 3000:3000 node-env-app
+
+Node, docker Overriding env command:
+docker run -d -p 3000:3000 \
+  -e Environment="Docker" \
+  -e Database__ConnectionString="docker connection string" \
+  node-env-app
+-----------------------------------------
