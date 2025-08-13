@@ -10,7 +10,6 @@ if (process.env.Environment) {
 }
 
 if (process.env.Database__ConnectionString) {
-  // We use double underscore (__) to mimic nested property overriding
   config.Database.ConnectionString = process.env.Database__ConnectionString;
 }
 
@@ -18,10 +17,31 @@ if (process.env.AllowedHosts) {
   config.AllowedHosts = process.env.AllowedHosts;
 }
 
-// 3️⃣ Create HTTP server to show config
+// 3️⃣ Create HTTP server to show config as HTML
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(config, null, 2)); // Pretty print JSON
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+
+  let html = `
+    <html>
+    <head>
+      <title>Configured Environment Variables</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .var { margin: 5px 0; }
+        b { color: #0066cc; }
+      </style>
+    </head>
+    <body>
+      <h1>Configured Environment Variables</h1>
+      <div class="var"><b>Environment:</b> ${config.Environment}</div>
+      <div class="var"><b>Database:ConnectionString:</b> ${config.Database.ConnectionString}</div>
+      <div class="var"><b>AllowedHosts:</b> ${config.AllowedHosts}</div>
+    </body>
+    </html>
+  `;
+
+  res.end(html);
 });
 
 server.listen(3000, () => {
