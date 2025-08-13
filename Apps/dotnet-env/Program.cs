@@ -15,6 +15,10 @@ app.MapGet("/", () =>
     var environment = configuration["Environment"];
     var connectionString = configuration["Database:ConnectionString"];
 
+    var env = app.Environment.EnvironmentName;
+    Console.WriteLine($"ENV: {env}");
+
+
     var html = "<h1>Configured Environment Variables</h1><ul>";
     html += $"<li><b>Environment</b>: {environment}</li>";
     html += $"<li><b>Database:ConnectionString</b>: {connectionString}</li>";
